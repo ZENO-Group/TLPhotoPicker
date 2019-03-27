@@ -76,8 +76,8 @@ class TLPhotoLibrary {
         return requestId
     }
     
-    func cancelPHImageRequest(requestId: PHImageRequestID) {
-        self.imageManager.cancelImageRequest(requestId)
+    func cancelPHImageRequest(requestID: PHImageRequestID) {
+        self.imageManager.cancelImageRequest(requestID)
     }
     
     @discardableResult

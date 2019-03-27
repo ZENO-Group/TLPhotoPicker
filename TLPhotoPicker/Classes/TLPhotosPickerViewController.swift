@@ -157,7 +157,7 @@ open class TLPhotosPickerViewController: UIViewController {
     
     private var collections = [TLAssetsCollection]()
     private var focusedCollection: TLAssetsCollection? = nil
-    private var requestIds = [IndexPath:PHImageRequestID]()
+    private var requestIDs = SynchronizedDictionary<IndexPath,PHImageRequestID>()
     private var playRequestId: (indexPath: IndexPath, requestId: PHImageRequestID)? = nil
     private var photoLibrary = TLPhotoLibrary()
     private var queue = DispatchQueue(label: "tilltue.photos.pikcker.queue")
@@ -167,7 +167,7 @@ open class TLPhotosPickerViewController: UIViewController {
     private var cameraImage: UIImage? = nil
     
     deinit {
-        //print("deinit TLPhotosPickerViewController")
+//        print("deinit TLPhotosPickerViewController")
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
@@ -403,10 +403,10 @@ extension TLPhotosPickerViewController {
     }
     
     private func cancelAllImageAssets() {
-        for (_,requestId) in self.requestIds {
-            self.photoLibrary.cancelPHImageRequest(requestId: requestId)
+        self.requestIDs.forEach{ [weak self] requestID in
+            self?.photoLibrary.cancelPHImageRequest(requestID: requestID)
         }
-        self.requestIds.removeAll()
+        self.requestIDs.removeAll()
     }
     
     // User Action
@@ -832,9 +832,9 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
                 self.playRequestId = nil
             }
         }
-        guard let requestId = self.requestIds[indexPath] else { return }
-        self.requestIds.removeValue(forKey: indexPath)
-        self.photoLibrary.cancelPHImageRequest(requestId: requestId)
+        guard let requestID = self.requestIDs[indexPath] else { return }
+        self.requestIDs.removeValue(forKey: indexPath)
+        self.photoLibrary.cancelPHImageRequest(requestID: requestID)
     }
     
     //Datasource
@@ -879,7 +879,7 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
                 options.isNetworkAccessAllowed = true
                 let requestId = self.photoLibrary.imageAsset(asset: phAsset, size: self.thumbnailSize, options: options) { [weak self, weak cell] (image,complete) in
                     guard let `self` = self else { return }
-                    if self.requestIds[indexPath] != nil {
+                    if self.requestIDs[indexPath] != nil {
                         DispatchQueue.main.async {
                             cell?.imageView?.image = image
                             cell?.update(with: phAsset)
@@ -890,17 +890,17 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
                         }
                     }
                     if complete {
-                        self.requestIds.removeValue(forKey: indexPath)
+                        self.requestIDs.removeValue(forKey: indexPath)
                     }
                 }
                 if requestId > 0 {
-                    self.requestIds[indexPath] = requestId
+                    self.requestIDs[indexPath] = requestId
                 }
             }else {
                 queue.async { [weak self, weak cell] in
                     guard let `self` = self else { return }
                     let requestId = self.photoLibrary.imageAsset(asset: phAsset, size: self.thumbnailSize, completionBlock: { (image,complete) in
-                        if self.requestIds[indexPath] != nil {
+                        if self.requestIDs[indexPath] != nil {
                             DispatchQueue.main.async {
                                 cell?.imageView?.image = image
                                 cell?.update(with: phAsset)
@@ -910,12 +910,12 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
                                 }
                             }
                             if complete {
-                                self.requestIds.removeValue(forKey: indexPath)
+                                self.requestIDs.removeValue(forKey: indexPath)
                             }
                         }
                     })
                     if requestId > 0 {
-                        self.requestIds[indexPath] = requestId
+                        self.requestIDs[indexPath] = requestId
                     }
                 }
             }
@@ -963,9 +963,9 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
     open func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         if self.usedPrefetch {
             for indexPath in indexPaths {
-                guard let requestId = self.requestIds[indexPath] else { continue }
-                self.photoLibrary.cancelPHImageRequest(requestId: requestId)
-                self.requestIds.removeValue(forKey: indexPath)
+                guard let requestId = self.requestIDs[indexPath] else { continue }
+                self.photoLibrary.cancelPHImageRequest(requestID: requestId)
+                self.requestIDs.removeValue(forKey: indexPath)
             }
             queue.async { [weak self] in
                 guard let `self` = self, let collection = self.focusedCollection else { return }

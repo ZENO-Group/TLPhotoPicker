@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0FB0ED624A638D659BB04CD99818D882 /* TLPhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 97D6A7784BD0A7B85273B4F018814511 /* TLPhotoPicker.bundle */; };
 		127EC45D282ADBA0BDA3C40D4D9F7CCD /* TLPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82F256271C8494A4007791B61B3F59B /* TLPhotoCollectionViewCell.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		18A977C3224BDBFD00888D18 /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A977C1224BD75200888D18 /* SynchronizedDictionary.swift */; };
 		21C47040319A92DAD9D080C25EB2B55E /* TLAssetCollection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0BA59ACFDE5B9FEAEE4D59DFF70532 /* TLAssetCollection+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		24FF1ACAE71C4474008C70B84DB2217A /* TLPhotoPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F41A35D95BF74C921A8A22FE80C1077C /* TLPhotoPickerController.bundle */; };
 		420B2598FBE8D5AE5C9BDB3CC6D4C93F /* TLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF638D8191CA448BDC143CC2616612E /* TLCollectionTableViewCell.xib */; };
@@ -53,6 +54,7 @@
 		01EBE2564449F479D05171428520EDBD /* ResourceBundle-TLPhotoPicker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-TLPhotoPicker-Info.plist"; sourceTree = "<group>"; };
 		10274543745B0F083B41F6EA13D7EBE3 /* TLPhotoPicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TLPhotoPicker-umbrella.h"; sourceTree = "<group>"; };
 		1546ABD1A1DC65A48CA295BFE9008097 /* TLBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TLBundle.swift; path = TLPhotoPicker/Classes/TLBundle.swift; sourceTree = "<group>"; };
+		18A977C1224BD75200888D18 /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SynchronizedDictionary.swift; path = TLPhotoPicker/Classes/SynchronizedDictionary.swift; sourceTree = "<group>"; };
 		1B823B635C4D527B1890D893DBBB31D1 /* TLCollectionTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TLCollectionTableViewCell.swift; path = TLPhotoPicker/Classes/TLCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		1EF5EE250763E3B536117B2441A0DE1C /* Pods-TLPhotoPicker_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TLPhotoPicker_Example-resources.sh"; sourceTree = "<group>"; };
 		22D4FB4FA12F5A68665F935581CFAB00 /* TLAssetsCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TLAssetsCollection.swift; path = TLPhotoPicker/Classes/TLAssetsCollection.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				AE61FCEDF25B2A46ECB42AD67045E112 /* TLPhotopickerDataSourcesProtocol.swift */,
 				D3246579939DA1C528B4EBAC852B7996 /* TLPhotosPickerViewController.swift */,
 				C06AFC81FB0762B80E232843B2329C50 /* TLPhotosPickerViewController.xib */,
+				18A977C1224BD75200888D18 /* SynchronizedDictionary.swift */,
 				398B42D509460A874D652EDCF4953015 /* Pod */,
 				BC3F834DDBEF7566B261054AFEB32F6D /* Resources */,
 				A033CFD881180BDC0DC38132984E908C /* Support Files */,
@@ -390,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A977C3224BDBFD00888D18 /* SynchronizedDictionary.swift in Sources */,
 				F10FA6098666687693BA3F6653F9F02C /* TLAlbumPopView.swift in Sources */,
 				21C47040319A92DAD9D080C25EB2B55E /* TLAssetCollection+Extension.swift in Sources */,
 				F9A69AF03E6114396FDA54694CBF0A86 /* TLAssetsCollection.swift in Sources */,
@@ -518,6 +522,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -552,6 +557,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
