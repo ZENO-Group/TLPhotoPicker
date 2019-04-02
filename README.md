@@ -7,7 +7,7 @@
 
 ## Written in Swift 5.0
 
-TLPhotoPicker enables application to pick images and videos from multiple smart album in iOS, similar to the current facebook app.
+TLPhotoPicker enables your application to pick images and videos from multiple smart album in iOS, similar to the current facebook app.
 
 ## Demo 🙉
 
